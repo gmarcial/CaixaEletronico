@@ -30,7 +30,21 @@ namespace CaixaEletronico.Core.Domain.Entities
             if (valor > 5000)
                 throw new ArgumentException("O valor a ser depositado excedeu o limite de 5000 reais", nameof(valor));
 
-            Saldo =+ valor;
+            Saldo += valor;
+        }
+
+        public void Sacar(decimal valor)
+        {
+            if(valor == 0)
+                throw new ArgumentException("O valor a ser sacado não pode ser zero", nameof(valor));
+            
+            if(valor > 1500)
+                throw new ArgumentException("O valor a ser sacado excedeu o limite de 1500 reais", nameof(valor));
+            
+            if (Saldo < valor)
+                throw new ArgumentException("A conta não tem saldo suficiente para o saque desejado", nameof(valor));
+
+            Saldo -= valor;
         }
     }
 }
