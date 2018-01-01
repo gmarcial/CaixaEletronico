@@ -1,0 +1,8 @@
+/home/gmarcial/Documentos/Projetos/CaixaEletronico/src/CaixaEletronico.Core/bin/Debug/netstandard2.0/CaixaEletronico.Core.deps.json
+/home/gmarcial/Documentos/Projetos/CaixaEletronico/src/CaixaEletronico.Core/bin/Debug/netstandard2.0/CaixaEletronico.Core.dll
+/home/gmarcial/Documentos/Projetos/CaixaEletronico/src/CaixaEletronico.Core/bin/Debug/netstandard2.0/CaixaEletronico.Core.pdb
+/home/gmarcial/Documentos/Projetos/CaixaEletronico/src/CaixaEletronico.Core/obj/Debug/netstandard2.0/CaixaEletronico.Core.csproj.CoreCompileInputs.cache
+/home/gmarcial/Documentos/Projetos/CaixaEletronico/src/CaixaEletronico.Core/obj/Debug/netstandard2.0/CaixaEletronico.Core.AssemblyInfoInputs.cache
+/home/gmarcial/Documentos/Projetos/CaixaEletronico/src/CaixaEletronico.Core/obj/Debug/netstandard2.0/CaixaEletronico.Core.AssemblyInfo.cs
+/home/gmarcial/Documentos/Projetos/CaixaEletronico/src/CaixaEletronico.Core/obj/Debug/netstandard2.0/CaixaEletronico.Core.dll
+/home/gmarcial/Documentos/Projetos/CaixaEletronico/src/CaixaEletronico.Core/obj/Debug/netstandard2.0/CaixaEletronico.Core.pdb

@@ -1,0 +1,55 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/home/gmarcial/Documentos/Projetos/CaixaEletronico/tests/CaixaEletronico.tests.UnitTests/CaixaEletronico.tests.UnitTests.csproj",
+    "projectName": "CaixaEletronico.tests.UnitTests",
+    "projectPath": "/home/gmarcial/Documentos/Projetos/CaixaEletronico/tests/CaixaEletronico.tests.UnitTests/CaixaEletronico.tests.UnitTests.csproj",
+    "outputPath": "/home/gmarcial/Documentos/Projetos/CaixaEletronico/tests/CaixaEletronico.tests.UnitTests/obj/",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "netcoreapp2.0"
+    ],
+    "frameworks": {
+      "netcoreapp2.0": {
+        "projectReferences": {}
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "2.0.0",
+          "autoReferenced": true
+        },
+        "Microsoft.NET.Test.Sdk": {
+          "target": "Package",
+          "version": "15.3.0-preview-20170628-02"
+        },
+        "xunit": {
+          "target": "Package",
+          "version": "2.2.0"
+        },
+        "xunit.runner.visualstudio": {
+          "target": "Package",
+          "version": "2.2.0"
+        }
+      },
+      "imports": [
+        "net461"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}
