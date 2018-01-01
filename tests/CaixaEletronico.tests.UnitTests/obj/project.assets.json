@@ -1659,6 +1659,16 @@
         "build": {
           "build/netcoreapp1.0/xunit.runner.visualstudio.props": {}
         }
+      },
+      "CaixaEletronico.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/CaixaEletronico.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CaixaEletronico.Core.dll": {}
+        }
       }
     }
   },
@@ -5604,10 +5614,16 @@
         "xunit.runner.visualstudio.2.2.0.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
+    },
+    "CaixaEletronico.Core/1.0.0": {
+      "type": "project",
+      "path": "../../src/CaixaEletronico.Core/CaixaEletronico.Core.csproj",
+      "msbuildProject": "../../src/CaixaEletronico.Core/CaixaEletronico.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "CaixaEletronico.Core >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 15.3.0-preview-20170628-02",
       "Microsoft.NETCore.App >= 2.0.0",
       "xunit >= 2.2.0",
@@ -5641,7 +5657,11 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/gmarcial/Documentos/Projetos/CaixaEletronico/src/CaixaEletronico.Core/CaixaEletronico.Core.csproj": {
+              "projectPath": "/home/gmarcial/Documentos/Projetos/CaixaEletronico/src/CaixaEletronico.Core/CaixaEletronico.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

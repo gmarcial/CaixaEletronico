@@ -14,7 +14,11 @@
     ],
     "frameworks": {
       "netcoreapp2.0": {
-        "projectReferences": {}
+        "projectReferences": {
+          "/home/gmarcial/Documentos/Projetos/CaixaEletronico/src/CaixaEletronico.Core/CaixaEletronico.Core.csproj": {
+            "projectPath": "/home/gmarcial/Documentos/Projetos/CaixaEletronico/src/CaixaEletronico.Core/CaixaEletronico.Core.csproj"
+          }
+        }
       }
     },
     "warningProperties": {

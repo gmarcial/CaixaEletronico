@@ -11,3 +11,5 @@
 /home/gmarcial/Documentos/Projetos/CaixaEletronico/tests/CaixaEletronico.tests.UnitTests/obj/Debug/netcoreapp2.0/CaixaEletronico.tests.UnitTests.AssemblyInfo.cs
 /home/gmarcial/Documentos/Projetos/CaixaEletronico/tests/CaixaEletronico.tests.UnitTests/obj/Debug/netcoreapp2.0/CaixaEletronico.tests.UnitTests.dll
 /home/gmarcial/Documentos/Projetos/CaixaEletronico/tests/CaixaEletronico.tests.UnitTests/obj/Debug/netcoreapp2.0/CaixaEletronico.tests.UnitTests.pdb
+/home/gmarcial/Documentos/Projetos/CaixaEletronico/tests/CaixaEletronico.tests.UnitTests/bin/Debug/netcoreapp2.0/CaixaEletronico.Core.dll
+/home/gmarcial/Documentos/Projetos/CaixaEletronico/tests/CaixaEletronico.tests.UnitTests/bin/Debug/netcoreapp2.0/CaixaEletronico.Core.pdb
