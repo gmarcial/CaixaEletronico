@@ -13,6 +13,7 @@ namespace CaixaEletronico.Core.Domain.Entities
 
         public Conta(long id, long agenciaId, long pessoaId, Guid numero, decimal saldo = 0)
         {
+            //TODO validar dados para consistencia dos objetos.
             if (numero.Equals(null))
                 throw new ArgumentException("O numero da conta não foi gerado em sua criação", nameof(numero));
             
