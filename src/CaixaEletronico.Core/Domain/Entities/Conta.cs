@@ -1,8 +1,9 @@
 ﻿using System;
+using CaixaEletronico.Core.Domain.Interfaces;
 
 namespace CaixaEletronico.Core.Domain.Entities
 {
-    public class Conta
+    public class Conta : IConta
     {
         public long Id { get; }
         public long AgenciaId { get; }
@@ -24,7 +25,8 @@ namespace CaixaEletronico.Core.Domain.Entities
 
         public void Depositar(decimal valor)
         {
-            if (valor == 0)
+            //TODO Encapsular em um conjunto de validações basicas ou referente a essa entidade.
+            if (valor <= 0)
                 throw new ArgumentException("O valor a ser depositado não pode ser zero", nameof(valor));
             
             if (valor > 5000)
@@ -35,8 +37,9 @@ namespace CaixaEletronico.Core.Domain.Entities
 
         public void Sacar(decimal valor)
         {
-            if(valor == 0)
-                throw new ArgumentException("O valor a ser sacado não pode ser zero", nameof(valor));
+            //TODO Encapsular em um conjunto de validações basicas ou referente a essa entidade.
+            if(valor <= 0)
+                throw new ArgumentException("O valor a ser sacado não pode ser zero ou negativo", nameof(valor));
             
             if(valor > 1500)
                 throw new ArgumentException("O valor a ser sacado excedeu o limite de 1500 reais", nameof(valor));

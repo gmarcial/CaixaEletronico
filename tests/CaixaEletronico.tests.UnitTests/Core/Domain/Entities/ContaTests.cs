@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using CaixaEletronico.Core.Domain.Entities;
 using Xunit;
 
@@ -28,7 +27,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         [InlineData(4000)]
         [InlineData(4500)]
         [InlineData(5000)]
-        public void Um_deposito_é_valido_quando_o_valor_for_abaixo_ou_igual_a_5000(decimal valor)
+        public void Um_deposito_é_valido_quando_o_valor_estiver_entre_1_e_5000(decimal valor)
         {
             conta.Depositar(valor);
 
@@ -36,9 +35,38 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         }
         
         [Theory]
-        [InlineData(0)]
         [InlineData(5001)]
-        public void Um_deposito_é_invalido_quando_o_valor_for_maior_que_5000_ou_igual_a_zero(decimal valor)
+        [InlineData(6000)]
+        [InlineData(7000)]
+        [InlineData(8000)]
+        [InlineData(9000)]
+        [InlineData(10000)]
+        public void Um_deposito_é_invalido_quando_o_valor_for_maior_que_5000(decimal valor)
+        {
+            Assert.Throws<ArgumentException>(() => conta.Depositar(valor));
+        }
+        
+        [Fact]
+        public void Um_deposito_é_invalido_quando_o_valor_for_maior_igual_a_zero()
+        {
+            Assert.Throws<ArgumentException>(() => conta.Depositar(0));
+        }
+
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(-10)]
+        [InlineData(-100)]
+        [InlineData(-500)]
+        [InlineData(-1000)]
+        [InlineData(-1500)]
+        [InlineData(-2000)]
+        [InlineData(-2500)]
+        [InlineData(-3000)]
+        [InlineData(-3500)]
+        [InlineData(-4000)]
+        [InlineData(-4500)]
+        [InlineData(-5000)]
+        public void Um_deposito_é_invalido_quando_o_valor_for_negativo(decimal valor)
         {
             Assert.Throws<ArgumentException>(() => conta.Depositar(valor));
         }
@@ -87,7 +115,6 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         }
         
         [Theory]
-        [InlineData(0)]
         [InlineData(2000)]
         [InlineData(2500)]
         [InlineData(3000)]
@@ -95,7 +122,32 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         [InlineData(4000)]
         [InlineData(4500)]
         [InlineData(5000)]
-        public void Um_saque_é_invalido_quando_o_valor_a_ser_sacado_for_maior_que_1500_ou_igual_a_zero(decimal valor)
+        public void Um_saque_é_invalido_quando_o_valor_a_ser_sacado_for_maior_que_1500(decimal valor)
+        {
+            Assert.Throws<ArgumentException>(() => conta.Sacar(valor));
+        }
+        
+        [Fact]
+        public void Um_saque_é_invalido_quando_o_valor_a_ser_sacado_for_igual_a_zero()
+        {
+            Assert.Throws<ArgumentException>(() => conta.Sacar(0));
+        }
+        
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(-10)]
+        [InlineData(-100)]
+        [InlineData(-500)]
+        [InlineData(-1000)]
+        [InlineData(-1500)]
+        [InlineData(-2000)]
+        [InlineData(-2500)]
+        [InlineData(-3000)]
+        [InlineData(-3500)]
+        [InlineData(-4000)]
+        [InlineData(-4500)]
+        [InlineData(-5000)]
+        public void Um_saque_é_invalido_quando_o_valor_for_negativo(decimal valor)
         {
             Assert.Throws<ArgumentException>(() => conta.Sacar(valor));
         }
