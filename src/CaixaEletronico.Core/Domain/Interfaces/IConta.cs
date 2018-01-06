@@ -2,6 +2,8 @@
 {
     public interface IConta
     {
+        decimal Saldo { get; }
+
         void Depositar(decimal valor);
         void Sacar(decimal valor);
     }

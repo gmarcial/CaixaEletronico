@@ -4,6 +4,7 @@ using Xunit;
 
 namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
 {
+    //TODO Mapear builders necessarios
     public class ContaTests
     {
         private Conta conta{ get; }
@@ -89,7 +90,6 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         [InlineData(1500)]
         public void Um_saque_é_valido_quando_o_saldo_for_maior_ou_igual_ao_valor_desejado(decimal valor)
         {
-            //TODO Utilizar um builder de conta com um valor inicial
             conta.Depositar(5000);
 
             var saldoEsperado = conta.Saldo - valor;
@@ -115,7 +115,6 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Um_saque_é_valido_quando_o_valor_a_ser_sacado_for_menor_ou_igual_a_1500(
             decimal valor)
         {
-            //TODO Utilizar um builder de conta com um valor inicial
             conta.Depositar(5000);
 
             var saldoEsperado = conta.Saldo - valor;

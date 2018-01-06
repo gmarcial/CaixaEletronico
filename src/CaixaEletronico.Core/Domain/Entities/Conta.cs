@@ -13,6 +13,7 @@ namespace CaixaEletronico.Core.Domain.Entities
 
         public Conta(long id, long agenciaId, long pessoaId, Guid numero, decimal saldo = 0)
         {
+            //TODO Encapsular validações basicas/comuns
             if(id <= 0)
                 throw new ArgumentOutOfRangeException(nameof(id), "O argumento id esta zero ou negativo.");
             
