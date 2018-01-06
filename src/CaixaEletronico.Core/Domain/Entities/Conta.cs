@@ -14,8 +14,21 @@ namespace CaixaEletronico.Core.Domain.Entities
         public Conta(long id, long agenciaId, long pessoaId, Guid numero, decimal saldo = 0)
         {
             //TODO validar dados para consistencia dos objetos.
+            if(id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "O argumento id esta zero ou negativo.");
+            
+            if(agenciaId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(agenciaId), "O argumento agenciaId esta zero ou negativo.");
+            
+            if(pessoaId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(pessoaId), "O argumento pessoaId esta zero ou negativo.");
+            
             if (numero.Equals(null))
-                throw new ArgumentException("O numero da conta não foi gerado em sua criação", nameof(numero));
+                throw new ArgumentNullException("O numero da conta não foi gerado em sua criação", nameof(numero));
+            
+            if(saldo.Equals(null))
+                throw new ArgumentException("O saldo esta com valor negativo");
+            
             
             Id = id;
             AgenciaId = agenciaId;
@@ -28,10 +41,10 @@ namespace CaixaEletronico.Core.Domain.Entities
         {
             //TODO Encapsular em um conjunto de validações basicas ou referente a essa entidade.
             if (valor <= 0)
-                throw new ArgumentException("O valor a ser depositado não pode ser zero", nameof(valor));
+                throw new ArgumentOutOfRangeException("O valor a ser depositado não pode ser zero ou negativo", nameof(valor));
             
             if (valor > 5000)
-                throw new ArgumentException("O valor a ser depositado excedeu o limite de 5000 reais", nameof(valor));
+                throw new ArgumentOutOfRangeException("O valor a ser depositado excedeu o limite de 5000 reais", nameof(valor));
 
             Saldo += valor;
         }
@@ -40,13 +53,13 @@ namespace CaixaEletronico.Core.Domain.Entities
         {
             //TODO Encapsular em um conjunto de validações basicas ou referente a essa entidade.
             if(valor <= 0)
-                throw new ArgumentException("O valor a ser sacado não pode ser zero ou negativo", nameof(valor));
+                throw new ArgumentOutOfRangeException("O valor a ser sacado não pode ser zero ou negativo", nameof(valor));
             
             if(valor > 1500)
-                throw new ArgumentException("O valor a ser sacado excedeu o limite de 1500 reais", nameof(valor));
+                throw new ArgumentOutOfRangeException("O valor a ser sacado excedeu o limite de 1500 reais", nameof(valor));
             
             if (Saldo < valor)
-                throw new ArgumentException("A conta não tem saldo suficiente para o saque desejado", nameof(valor));
+                throw new ArgumentOutOfRangeException("A conta não tem saldo suficiente para o saque desejado", nameof(valor));
 
             Saldo -= valor;
         }

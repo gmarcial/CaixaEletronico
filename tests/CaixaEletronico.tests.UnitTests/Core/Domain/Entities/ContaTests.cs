@@ -13,6 +13,15 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
             conta = new Conta(83712, 9134, 1301, Guid.NewGuid());
         }
 
+        [Fact]
+        public void Uma_conta_deve_ser_criada_somente_com_um_estado_valido()
+        {
+            var conta = new Conta(39491, 230103, 0231, Guid.NewGuid(), 1000);
+
+            Assert.Equal(typeof(Conta), conta.GetType());
+            Assert.IsType<Conta>(conta);
+        }
+        
         [Theory]
         [InlineData(1)]
         [InlineData(10)]
@@ -43,13 +52,13 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         [InlineData(10000)]
         public void Um_deposito_é_invalido_quando_o_valor_for_maior_que_5000(decimal valor)
         {
-            Assert.Throws<ArgumentException>(() => conta.Depositar(valor));
+            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Depositar(valor));
         }
         
         [Fact]
-        public void Um_deposito_é_invalido_quando_o_valor_for_maior_igual_a_zero()
+        public void Um_deposito_é_invalido_quando_o_valor_for_igual_a_zero()
         {
-            Assert.Throws<ArgumentException>(() => conta.Depositar(0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Depositar(0));
         }
 
         [Theory]
@@ -68,7 +77,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         [InlineData(-5000)]
         public void Um_deposito_é_invalido_quando_o_valor_for_negativo(decimal valor)
         {
-            Assert.Throws<ArgumentException>(() => conta.Depositar(valor));
+            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Depositar(valor));
         }
         
         [Theory]
@@ -80,6 +89,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         [InlineData(1500)]
         public void Um_saque_é_valido_quando_o_saldo_for_maior_ou_igual_ao_valor_desejado(decimal valor)
         {
+            //TODO Utilizar um builder de conta com um valor inicial
             conta.Depositar(5000);
 
             var saldoEsperado = conta.Saldo - valor;
@@ -92,7 +102,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         [Fact]
         public void Um_saque_é_invalido_quando_o_saldo_for_menor_que_o_valor_desejado()
         {
-            Assert.Throws<ArgumentException>(() => conta.Sacar(100));
+            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Sacar(100));
         }
 
         [Theory]
@@ -105,6 +115,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Um_saque_é_valido_quando_o_valor_a_ser_sacado_for_menor_ou_igual_a_1500(
             decimal valor)
         {
+            //TODO Utilizar um builder de conta com um valor inicial
             conta.Depositar(5000);
 
             var saldoEsperado = conta.Saldo - valor;
@@ -124,13 +135,13 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         [InlineData(5000)]
         public void Um_saque_é_invalido_quando_o_valor_a_ser_sacado_for_maior_que_1500(decimal valor)
         {
-            Assert.Throws<ArgumentException>(() => conta.Sacar(valor));
+            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Sacar(valor));
         }
         
         [Fact]
         public void Um_saque_é_invalido_quando_o_valor_a_ser_sacado_for_igual_a_zero()
         {
-            Assert.Throws<ArgumentException>(() => conta.Sacar(0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Sacar(0));
         }
         
         [Theory]
@@ -149,7 +160,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         [InlineData(-5000)]
         public void Um_saque_é_invalido_quando_o_valor_for_negativo(decimal valor)
         {
-            Assert.Throws<ArgumentException>(() => conta.Sacar(valor));
+            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Sacar(valor));
         }
     }
 }
