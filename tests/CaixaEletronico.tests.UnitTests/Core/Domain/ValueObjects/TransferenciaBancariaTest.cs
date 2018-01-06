@@ -68,6 +68,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.ValueObjects
                 new TransferenciaBancaria(remetente.Object, favorecido.Object, Guid.NewGuid(), 500));
         }
 
+        //TODO Refatorar de Fact para Theory
         [Fact]
         public void 
             Uma_transferencia_de_sucesso_subtrai_o_saldo_do_remetente_e_atribuido_no_favorecido_o_valor_transferido()
