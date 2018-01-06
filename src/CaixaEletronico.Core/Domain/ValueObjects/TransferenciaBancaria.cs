@@ -19,7 +19,7 @@ namespace CaixaEletronico.Core.Domain.ValueObjects
             if (favorecido.Equals(null))
                 throw new ArgumentNullException(nameof(favorecido), "O favorecido esta nullo.");
             
-            if(valor < 0)
+            if(valor <= 0)
                 throw new ArgumentOutOfRangeException(nameof(valor), "O argumento valor esta negativo");
             
             if (numero.Equals(null))

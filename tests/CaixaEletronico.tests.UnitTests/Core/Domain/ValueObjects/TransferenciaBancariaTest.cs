@@ -28,6 +28,21 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.ValueObjects
         [Theory]
         [InlineData(0)]
         [InlineData(-1)]
+        public void Uma_transferencia_não_deve_ser_criada_se_o_valor_transferido_for_zero_ou_negativo(decimal valor)
+        {
+            var remetente = new Mock<IConta>();
+            remetente.SetupGet(s => s.Saldo).Returns(200);
+            
+            var favorecido = new Mock<IConta>();
+            favorecido.SetupGet(s => s.Saldo).Returns(100);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                new TransferenciaBancaria(remetente.Object, favorecido.Object, Guid.NewGuid(), valor));
+        }
+        
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
         public void Uma_transferencia_não_deve_ser_criada_se_o_saldo_do_remetente_for_zero_ou_negativo(decimal valor)
         {
             var remetente = new Mock<IConta>();
