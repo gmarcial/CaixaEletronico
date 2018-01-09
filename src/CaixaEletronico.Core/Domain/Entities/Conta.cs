@@ -22,10 +22,10 @@ namespace CaixaEletronico.Core.Domain.Entities
             if(pessoaId <= 0)
                 throw new ArgumentOutOfRangeException(nameof(pessoaId), "O argumento pessoaId esta zero ou negativo.");
             
-            if (numero.Equals(null))
+            if (numero.Equals(Guid.Empty))
                 throw new ArgumentNullException("O numero da conta não foi gerado em sua criação", nameof(numero));
             
-            if(saldo.Equals(null))
+            if(saldo < 0)
                 throw new ArgumentException("O saldo esta com valor negativo");
             
             
@@ -58,9 +58,38 @@ namespace CaixaEletronico.Core.Domain.Entities
                 throw new ArgumentOutOfRangeException("O valor a ser sacado excedeu o limite de 1500 reais", nameof(valor));
             
             if (Saldo < valor)
-                throw new ArgumentOutOfRangeException("A conta não tem saldo suficiente para o saque desejado", nameof(valor));
+                throw new ArgumentOutOfRangeException("Saldo insuficiente para o saque desejado", nameof(valor));
 
             Saldo -= valor;
+        }
+
+        public decimal Transferir(decimal valor)
+        {
+            if(valor <= 0)
+                throw new ArgumentNullException("O valor a ser transferido não pode ser zero ou negativo", nameof(valor));
+            
+            if (valor > 10000m)
+                throw new ArgumentOutOfRangeException("O valor a ser transferido excedeu o limite de 10000 reais",
+                    nameof(valor));
+            
+            if(Saldo < valor)
+                throw new ArgumentOutOfRangeException("Saldo insuficiente para a transferencia desejada", nameof(valor));
+
+            Saldo -= valor;
+            
+            return valor;
+        }
+
+        public void Receber(decimal valor)
+        {
+            if(valor <= 0)
+                throw new ArgumentNullException("O valor a ser recebido não pode ser zero ou negativo", nameof(valor));
+            
+            if (valor > 10000m)
+                throw new ArgumentOutOfRangeException("O valor a ser recebido excedeu o limite de 10000 reais",
+                    nameof(valor));
+
+            Saldo += valor;
         }
     }
 }
