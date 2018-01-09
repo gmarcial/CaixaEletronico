@@ -1,9 +1,8 @@
 ﻿using System;
-using CaixaEletronico.Core.Domain.Interfaces;
 
 namespace CaixaEletronico.Core.Domain.Entities
 {
-    public class Conta : IConta
+    public class Conta
     {
         public long Id { get; }
         public long AgenciaId { get; }
