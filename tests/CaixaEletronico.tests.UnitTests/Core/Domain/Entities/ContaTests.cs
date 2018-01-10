@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using CaixaEletronico.Core.Domain.Entities;
+using CaixaEletronico.tests.UnitTests.Builders;
 using FluentAssertions;
 using Xunit;
 
@@ -8,23 +9,19 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
 {
     public class ContaTests
     {
-        private Conta conta{ get; }
+        private ContaBuilder ContaBuilder{ get; }
         
         public ContaTests()
         {
-            //Mapear para um builder
-            conta = new Conta(83712, 9134, 1301, Guid.NewGuid());
+            ContaBuilder = new ContaBuilder();
         }
 
         [Fact]
         public void Uma_conta_deve_ser_criada_somente_com_um_estado_valido()
         {
             //Arrange
-            //Futuro builder de conta
-            var numero = Guid.NewGuid();
-            
             //Act
-            var conta = new Conta(39491, 230103, 0231, numero, 1000);
+            var conta = ContaBuilder.Build();
 
             //Assert
             Assert.Equal(typeof(Conta), conta.GetType());
@@ -35,25 +32,27 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Uma_conta_não_deve_ser_criada_sem_um_numero()
         {
             //Arrange
-            //Futuro builder de conta
-            var numeroVazio = Guid.Empty;
+            ContaBuilder.NumeroEmpty();
             
             //Act
+            Action conta = () => ContaBuilder.Build();
+            
             //Assert
-            Assert.Throws<ArgumentNullException>(() => new Conta(39491, 230103, 0231, numeroVazio, 1000));
+            Assert.Throws<ArgumentNullException>(conta);
         }
 
         [Fact]
         public void Uma_conta_não_deve_ser_criada_com_saldo_negativo()
         {
             //Arrange
-            //Futuro builder de conta
-            var numero = Guid.NewGuid();
             const int saldoNegativo = -1;
+            ContaBuilder.Saldo(saldoNegativo);
             
             //Act
+            Action conta = () => ContaBuilder.Build();
+            
             //Assert
-            Assert.Throws<ArgumentException>(() => new Conta(39491, 230103, 0231, numero, saldoNegativo));
+            Assert.Throws<ArgumentException>(conta);
 
         }
         
@@ -74,7 +73,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Um_deposito_é_valido_quando_o_valor_estiver_entre_1_e_5000(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             
             //Act
             conta.Depositar(valor);
@@ -93,22 +92,26 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Um_deposito_é_invalido_quando_o_valor_for_maior_que_5000(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             
             //Act
+            Action depositar = () => conta.Depositar(valor);
+            
             //Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Depositar(valor));
+            Assert.Throws<ArgumentOutOfRangeException>(depositar);
         }
         
         [Fact]
         public void Um_deposito_é_invalido_quando_o_valor_for_igual_a_zero()
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             
             //Act
+            Action depositar = () => conta.Depositar(0);
+            
             //Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Depositar(0));
+            Assert.Throws<ArgumentOutOfRangeException>(depositar);
         }
 
         [Theory]
@@ -128,11 +131,13 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Um_deposito_é_invalido_quando_o_valor_for_negativo(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             
             //Act
+            Action depositar = () => conta.Depositar(valor);
+            
             //Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Depositar(valor));
+            Assert.Throws<ArgumentOutOfRangeException>(depositar);
         }
         
         [Theory]
@@ -145,8 +150,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Um_saque_é_valido_quando_o_saldo_for_maior_ou_igual_ao_valor_desejado(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
-            conta.Depositar(5000);
+            var conta = ContaBuilder.Saldo(5000).Build();
             var saldoEsperado = conta.Saldo - valor;   
             
             //Act
@@ -156,15 +160,20 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
             Assert.Equal(saldoEsperado, conta.Saldo);
         }
 
-        [Fact]
-        public void Um_saque_é_invalido_quando_o_saldo_for_menor_que_o_valor_desejado()
+        [Theory]
+        [InlineData(3500)]
+        [InlineData(1300)]
+        [InlineData(2700)]
+        public void Um_saque_é_invalido_quando_o_saldo_for_menor_que_o_valor_desejado(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             
             //Act
+            Action saque = () => conta.Sacar(valor);
+            
             //Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Sacar(100));
+            Assert.Throws<ArgumentOutOfRangeException>(saque);
         }
 
         [Theory]
@@ -178,8 +187,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
             decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
-            conta.Depositar(5000);
+            var conta = ContaBuilder.Saldo(5000).Build();
             var saldoEsperado = conta.Saldo - valor;
             
             //Act
@@ -200,22 +208,26 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Um_saque_é_invalido_quando_o_valor_a_ser_sacado_for_maior_que_1500(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             
             //Act
+            Action saque = () => conta.Sacar(valor);
+            
             //Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Sacar(valor));
+            Assert.Throws<ArgumentOutOfRangeException>(saque);
         }
         
         [Fact]
         public void Um_saque_é_invalido_quando_o_valor_a_ser_sacado_for_igual_a_zero()
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             
             //Act
+            Action saque = () => conta.Sacar(0);
+            
             //Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Sacar(0));
+            Assert.Throws<ArgumentOutOfRangeException>(saque);
         }
         
         [Theory]
@@ -235,11 +247,13 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Um_saque_é_invalido_quando_o_valor_for_negativo(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             
             //Act
+            Action saque = () => conta.Sacar(valor);
+            
             //Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Sacar(valor));
+            Assert.Throws<ArgumentOutOfRangeException>(saque);
         }
 
         [Theory]
@@ -251,8 +265,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Uma_transferencia_é_valida_quando_o_valor_for_maior_que_zero(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
-            conta.Depositar(5000);
+            var conta = ContaBuilder.Saldo(5000).Build();
             
             //Act
             var valorTransferido = conta.Transferir(valor);
@@ -267,11 +280,13 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Uma_transferencia_é_invalida_quando_o_valor_for_zero_ou_negativo(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             
             //Act
+            Action transferencia = () => conta.Transferir(valor);
+            
             //Assert
-            Assert.Throws<ArgumentNullException>(() => conta.Transferir(valor));
+            Assert.Throws<ArgumentOutOfRangeException>(transferencia);
         }
 
         [Theory]
@@ -297,9 +312,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Uma_transferencia_é_valida_quando_o_valor_for_igual_ou_menor_que_o_limite_de_10000(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
-            var numero = Guid.NewGuid();
-            var conta = new Conta(1023,3240,1235, numero, valor);
+            var conta = ContaBuilder.Saldo(10000).Build();
             
             //Act
             var valorTransferido = conta.Transferir(valor);
@@ -318,11 +331,13 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Uma_transferencia_é_invalida_quando_o_valor_for_maior_que_o_limite_de_10000(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             
             //Act
+            Action transferencia = () => conta.Transferir(valor);
+            
             //Asser
-            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Transferir(valor));
+            Assert.Throws<ArgumentOutOfRangeException>(transferencia);
         }
 
         [Theory]
@@ -334,8 +349,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Uma_transferencia_é_valida_quando_o_saldo_for_igual_ou_maior_ao_valor(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
-            conta.Depositar(5000);
+            var conta = ContaBuilder.Saldo(5000).Build();
             
             //Act
             var valorTransferido = conta.Transferir(valor);
@@ -352,8 +366,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Uma_transferencia_é_valida_quando_o_saldo_é_subtraido_pelo_valor(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
-            conta.Depositar(5000);
+            var conta = ContaBuilder.Saldo(5000).Build();
             var saldoEsperado = conta.Saldo - valor;
             
             //Act
@@ -371,7 +384,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Um_recebimento_é_valido_quando_o_valor_for_maior_que_zero(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             var saldoEsperado = conta.Saldo + valor;
             
             //Act
@@ -387,11 +400,13 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Um_recebimento_é_invalido_quando_o_valor_for_zero_ou_negativo(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             
             //Act
+            Action receber = () => conta.Receber(valor);
+            
             //Assert
-            Assert.Throws<ArgumentNullException>(() => conta.Receber(valor));
+            Assert.Throws<ArgumentOutOfRangeException>(receber);
         }
 
         [Theory]
@@ -417,7 +432,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Um_recebimento_é_valido_quando_o_valor_for_menor_ou_igual_ao_limite_de_10000(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             var saldoEsperado = conta.Saldo + valor;
             
             //Act
@@ -435,11 +450,13 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Um_recebimento_é_invalido_quando_o_valor_for_maior_que_o_limite_de_10000(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             
             //Act
+            Action receber = () => conta.Receber(valor);
+            
             //Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => conta.Receber(valor));
+            Assert.Throws<ArgumentOutOfRangeException>(receber);
         }
 
         [Theory]
@@ -452,7 +469,7 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Um_recebimento_é_valido_quando_o_valor_for_atribuido_ao_saldo(decimal valor)
         {
             //Arrange
-            //Futuro builder de conta
+            var conta = ContaBuilder.Build();
             var saldoEsperado = conta.Saldo + valor;
             
             //Act
