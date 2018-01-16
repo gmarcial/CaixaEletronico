@@ -9,6 +9,7 @@ namespace CaixaEletronico.Core.Domain.Entities
         public long AgenciaId { get; }
         public long PessoaId { get; }
         public Guid Numero { get; }
+        public string Senha { get; }
         public decimal Saldo { get; private set; }
 
             public Conta(long id, long agenciaId, long pessoaId, Guid numero, decimal saldo = 0)
