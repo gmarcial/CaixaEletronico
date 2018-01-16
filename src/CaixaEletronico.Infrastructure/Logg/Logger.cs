@@ -1,8 +1,7 @@
 ﻿using System.Data;
-using System.Data.SqlClient;
 using Dapper;
 
-namespace CaixaEletronico.Infrastructure.Logger
+namespace CaixaEletronico.Infrastructure.Log
 {
     public class Logger
     {
