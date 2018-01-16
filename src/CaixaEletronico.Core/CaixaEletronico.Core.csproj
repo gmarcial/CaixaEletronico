@@ -6,6 +6,9 @@
     <Folder Include="Domain\Entitie" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.4.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\CaixaEletronico.Infrastructure\CaixaEletronico.Infrastructure.csproj">
       <Project>{463FEE4E-A61F-402F-A6B8-95D38B09BE9B}</Project>
       <Name>CaixaEletronico.Infrastructure</Name>

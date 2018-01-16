@@ -6,4 +6,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CaixaEletronico.Core\CaixaEletronico.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.4.0" />
+  </ItemGroup>
 </Project>

@@ -1,8 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.4" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CaixaEletronico.Core\CaixaEletronico.Core.csproj">
+      <Project>{CD5F81CA-75D7-4CE7-ACC7-2BFC57034459}</Project>
+      <Name>CaixaEletronico.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CaixaEletronico.Infrastructure\CaixaEletronico.Infrastructure.csproj">
+      <Project>{463FEE4E-A61F-402F-A6B8-95D38B09BE9B}</Project>
+      <Name>CaixaEletronico.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
