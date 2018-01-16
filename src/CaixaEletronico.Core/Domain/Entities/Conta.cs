@@ -1,5 +1,5 @@
 ﻿using System;
-using CaixaEletronico.Infrastructure.Validacoes;
+using CaixaEletronico.Core.Helpers;
 
 namespace CaixaEletronico.Core.Domain.Entities
 {

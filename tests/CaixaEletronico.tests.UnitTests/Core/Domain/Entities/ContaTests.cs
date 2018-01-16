@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using CaixaEletronico.Core.Domain.Entities;
 using CaixaEletronico.tests.UnitTests.Builders;
-using FluentAssertions;
 using Xunit;
 
 namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
