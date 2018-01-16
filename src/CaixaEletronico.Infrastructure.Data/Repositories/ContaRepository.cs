@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using CaixaEletronico.Core.Domain.Entities;
 using CaixaEletronico.Core.Domain.Repositories;
-using CaixaEletronico.Infrastructure.Logger;
 using Dapper;
 
 namespace CaixaEletronico.Infrastructure.Data.Repositories
