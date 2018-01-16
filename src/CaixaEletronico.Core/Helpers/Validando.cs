@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CaixaEletronico.Infrastructure.Validacoes
+namespace CaixaEletronico.Core.Helpers
 {
     public static class Validando
     {
