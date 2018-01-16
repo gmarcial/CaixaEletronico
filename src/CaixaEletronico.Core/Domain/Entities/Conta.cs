@@ -1,5 +1,5 @@
 ﻿using System;
-using CaixaEletronico.Core.Helpers;
+using CaixaEletronico.Infrastructure.Validacoes;
 
 namespace CaixaEletronico.Core.Domain.Entities
 {
@@ -13,18 +13,16 @@ namespace CaixaEletronico.Core.Domain.Entities
 
             public Conta(long id, long agenciaId, long pessoaId, Guid numero, decimal saldo = 0)
         {
-            //TODO Encapsular validações basicas/comuns
-            Validacoes.ZeroOuNegativo(id, nameof(id));
-            Validacoes.ZeroOuNegativo(agenciaId, nameof(agenciaId));
-            Validacoes.ZeroOuNegativo(pessoaId, nameof(pessoaId));
-            Validacoes.ZeroOuNegativo(pessoaId, nameof(pessoaId));
+            Validando.ZeroOuNegativo(id, nameof(id));
+            Validando.ZeroOuNegativo(agenciaId, nameof(agenciaId));
+            Validando.ZeroOuNegativo(pessoaId, nameof(pessoaId));
+            Validando.ZeroOuNegativo(pessoaId, nameof(pessoaId));
             
             if (numero.Equals(Guid.Empty))
                 throw new ArgumentNullException("O numero da conta não foi gerado em sua criação", nameof(numero));
             
             if(saldo < 0)
                 throw new ArgumentException("O saldo esta com valor negativo");
-            
             
             Id = id;
             AgenciaId = agenciaId;
@@ -50,9 +48,9 @@ namespace CaixaEletronico.Core.Domain.Entities
         public decimal Transferir(decimal valor)
         {
             GarantirQuePodeTransferir(valor);
-
-            Saldo -= valor;
             
+            Saldo -= valor;
+
             return valor;
         }
 
@@ -65,7 +63,7 @@ namespace CaixaEletronico.Core.Domain.Entities
         
         private void GarantirQuePodeDepositar(decimal valor)
         {
-            Validacoes.ZeroOuNegativo(valor, nameof(valor));
+            Validando.ZeroOuNegativo(valor, nameof(valor));
             
             if (valor > 5000)
                 throw new ArgumentOutOfRangeException("O valor a ser depositado excedeu o limite de 5000 reais", nameof(valor));
@@ -73,7 +71,7 @@ namespace CaixaEletronico.Core.Domain.Entities
         
         private void GarantirQuePodeSacar(decimal valor)
         {
-            Validacoes.ZeroOuNegativo(valor, nameof(valor));
+            Validando.ZeroOuNegativo(valor, nameof(valor));
             
             if(valor > 1500)
                 throw new ArgumentOutOfRangeException("O valor a ser sacado excedeu o limite de 1500 reais", nameof(valor));
@@ -84,7 +82,7 @@ namespace CaixaEletronico.Core.Domain.Entities
         
         private void GarantirQuePodeTransferir(decimal valor)
         {
-            Validacoes.ZeroOuNegativo(valor, nameof(valor));
+            Validando.ZeroOuNegativo(valor, nameof(valor));
             
             if (valor > 10000m)
                 throw new ArgumentOutOfRangeException("O valor a ser transferido excedeu o limite de 10000 reais",
@@ -96,7 +94,7 @@ namespace CaixaEletronico.Core.Domain.Entities
         
         private void GarantirQuePodeReceber(decimal valor)
         {
-            Validacoes.ZeroOuNegativo(valor, nameof(valor));
+            Validando.ZeroOuNegativo(valor, nameof(valor));
             
             if (valor > 10000m)
                 throw new ArgumentOutOfRangeException("O valor a ser recebido excedeu o limite de 10000 reais",

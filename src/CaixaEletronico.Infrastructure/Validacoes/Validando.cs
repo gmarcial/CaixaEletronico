@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace CaixaEletronico.Core.Helpers
+namespace CaixaEletronico.Infrastructure.Validacoes
 {
-    public static class Validacoes
+    public static class Validando
     {
         public static void ZeroOuNegativo(decimal valor, string nomeDoParametro)
         {
