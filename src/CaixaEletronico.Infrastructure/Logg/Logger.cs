@@ -9,7 +9,7 @@ namespace CaixaEletronico.Infrastructure.Logg
 
         public Logger(IDbConnection connection) => _connection = connection;
 
-        public async void TransacaoAsync(Extrato extrato)
+        public async void LogAsync(Extrato extrato)
         {
             const string insert =
                 "insert into Extrato(" +
