@@ -11,14 +11,18 @@ namespace CaixaEletronico.Infrastructure.Config
 {
     public class ContainerRegister
     {
-        public void Register(Container container)
+        public Container Register()
         {
+            var container = new Container();
+            
             container.Register<IDbConnection>(() =>
                 new SqlConnection(Path.Combine(Directory.GetCurrentDirectory(),
                     "../../CaixaEletronico.Infrastructure.Data/CaixaEletronico")), Lifestyle.Scoped);
             container.Register<IContaRepository, ContaRepository>(Lifestyle.Singleton);
             
             container.Verify();
+
+            return container;
         }
     }
 }
