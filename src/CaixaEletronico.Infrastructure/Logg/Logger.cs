@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using CaixaEletronico.Infrastructure.Data;
 using Dapper;
 
 namespace CaixaEletronico.Infrastructure.Logg
