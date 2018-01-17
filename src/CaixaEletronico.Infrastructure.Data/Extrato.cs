@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CaixaEletronico.Infrastructure
+namespace CaixaEletronico.Infrastructure.Data
 {
     public class Extrato
     {
