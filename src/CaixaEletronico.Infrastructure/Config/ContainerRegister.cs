@@ -1,8 +1,6 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using CaixaEletronico.Core.Domain.Repositories;
 using CaixaEletronico.Infrastructure.Data.Repositories;
 using SimpleInjector;
