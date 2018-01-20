@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using CaixaEletronico.Core.Domain.Entities;
 using CaixaEletronico.Infrastructure.Data;
 using Dapper;
 

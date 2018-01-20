@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CaixaEletronico.Core.Domain.Entities;
-using CaixaEletronico.Infrastructure.Data;
 
 namespace CaixaEletronico.Core.Domain.Repositories
 {
