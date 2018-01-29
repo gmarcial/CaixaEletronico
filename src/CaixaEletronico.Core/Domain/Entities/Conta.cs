@@ -30,7 +30,11 @@ namespace CaixaEletronico.Core.Domain.Entities
             Numero = numero;
             Saldo = saldo;
         }
-
+        
+        /// <summary>
+        /// Deposita o valor na conta, atribuindo o valor do saldo.
+        /// </summary>
+        /// <param name="valor">Valor a ser depositado</param>
         public void Depositar(decimal valor)
         {
             GarantirQuePodeDepositar(valor);
@@ -38,6 +42,10 @@ namespace CaixaEletronico.Core.Domain.Entities
             Saldo += valor;
         }
 
+        /// <summary>
+        /// Saca o valor da conta, subtraindo o valor ao saldo.
+        /// </summary>
+        /// <param name="valor">Valor a ser sacado</param>
         public void Sacar(decimal valor)
         {
             GarantirQuePodeSacar(valor);
@@ -45,6 +53,12 @@ namespace CaixaEletronico.Core.Domain.Entities
             Saldo -= valor;
         }
 
+        /// <summary>
+        /// Transfere o valor da para para outra conta, subtrai o valor do saldo
+        /// e atribui ao saldo de outra conta.
+        /// </summary>
+        /// <param name="valor">Valor a ser transferido</param>
+        /// <param name="favorecido">Conta favorecida, para qual o valor foi transferido</param>
         public void Transferir(decimal valor, Conta favorecido)
         {
             GarantirQuePodeTransferir(valor);
@@ -54,6 +68,10 @@ namespace CaixaEletronico.Core.Domain.Entities
             favorecido.Receber(valor);
         }
 
+        /// <summary>
+        /// Recebe o valor transferido, atribui o valor ao saldo. 
+        /// </summary>
+        /// <param name="valor">Valor recebido por transferencia</param>
         private void Receber(decimal valor)
         {
             GarantirQuePodeReceber(valor);
@@ -61,6 +79,11 @@ namespace CaixaEletronico.Core.Domain.Entities
             Saldo += valor;
         }
 
+        /// <summary>
+        /// Garante que o valor determinado pode ser depositado
+        /// </summary>
+        /// <param name="valor">Valor avaliado para deposito</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private void GarantirQuePodeDepositar(decimal valor)
         {
             Validando.ZeroOuNegativo(valor, nameof(valor));
@@ -70,6 +93,11 @@ namespace CaixaEletronico.Core.Domain.Entities
                     nameof(valor));
         }
 
+        /// <summary>
+        /// Garante que o valor determinado pode ser sacado
+        /// </summary>
+        /// <param name="valor">Valor avaliado para saque</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private void GarantirQuePodeSacar(decimal valor)
         {
             Validando.ZeroOuNegativo(valor, nameof(valor));
@@ -82,6 +110,11 @@ namespace CaixaEletronico.Core.Domain.Entities
                 throw new ArgumentOutOfRangeException("Saldo insuficiente para o saque desejado", nameof(valor));
         }
 
+        /// <summary>
+        /// Garante que o valor determinado pode ser transferido
+        /// </summary>
+        /// <param name="valor">Valor avaliado para transferencia</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private void GarantirQuePodeTransferir(decimal valor)
         {
             Validando.ZeroOuNegativo(valor, nameof(valor));
@@ -95,6 +128,11 @@ namespace CaixaEletronico.Core.Domain.Entities
                     nameof(valor));
         }
 
+        /// <summary>
+        /// Garante que o valor determinado pode ser recebido
+        /// </summary>
+        /// <param name="valor">Valor avaliado para recebimento</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private void GarantirQuePodeReceber(decimal valor)
         {
             Validando.ZeroOuNegativo(valor, nameof(valor));
