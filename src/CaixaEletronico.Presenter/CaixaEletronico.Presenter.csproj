@@ -4,10 +4,26 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\CaixaEletronico.Core\CaixaEletronico.Core.csproj" />
+    <ProjectReference Include="..\CaixaEletronico.Infrastructure\CaixaEletronico.Infrastructure.csproj">
+      <Project>{463FEE4E-A61F-402F-A6B8-95D38B09BE9B}</Project>
+      <Name>CaixaEletronico.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="sqlite-net-pcl" Version="1.5.166-beta" />
+    <PackageReference Include="SQLite.Net.Core-PCL" Version="3.1.1" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="1.1.9" />
+    <PackageReference Include="SQLitePCLRaw.core" Version="1.1.9" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.106" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.4.0" />
   </ItemGroup>
 </Project>

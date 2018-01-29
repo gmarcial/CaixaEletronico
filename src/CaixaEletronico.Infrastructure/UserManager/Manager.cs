@@ -11,7 +11,7 @@ namespace CaixaEletronico.Infrastructure.UserManager
 
         public Manager(IDbConnection connection) => _connection = connection;
 
-        public async ValueTask<User> LogIn(string numeroAgencia, string numeroConta, string senha)
+        public async ValueTask<User> LogInAsync(string numeroAgencia, string numeroConta, string senha)
         {
             const string query = "select Senha from Conta where Numero = @numero";
 

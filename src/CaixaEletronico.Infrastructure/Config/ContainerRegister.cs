@@ -1,9 +1,11 @@
 ﻿using System.Data;
-using System.Data.SqlClient;
-using System.IO;
+using System.Data.SQLite;
 using CaixaEletronico.Core.Domain.Repositories;
 using CaixaEletronico.Infrastructure.Data.Repositories;
+using CaixaEletronico.Infrastructure.Logg;
+using CaixaEletronico.Infrastructure.UserManager;
 using SimpleInjector;
+using SimpleInjector.Lifestyles;
 
 namespace CaixaEletronico.Infrastructure.Config
 {
@@ -12,12 +14,15 @@ namespace CaixaEletronico.Infrastructure.Config
         public Container Register()
         {
             var container = new Container();
-            
+            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+
             container.Register<IDbConnection>(() =>
-                new SqlConnection(Path.Combine(Directory.GetCurrentDirectory(),
-                    "../../CaixaEletronico.Infrastructure.Data/CaixaEletronico")), Lifestyle.Scoped);
-            container.Register<IContaRepository, ContaRepository>(Lifestyle.Singleton);
-            
+                    new SQLiteConnection(
+                        "Data Source=/home/gmarcial/Documentos/Projetos/CaixaEletronico/src/CaixaEletronico.Infrastructure.Data/CaixaEletronico.db"), 
+                Lifestyle.Scoped);
+            container.Register<Manager>(Lifestyle.Scoped);
+            container.Register<IContaRepository, ContaRepository>(Lifestyle.Scoped);
+            container.Register<Logger>(Lifestyle.Scoped);
             container.Verify();
 
             return container;
