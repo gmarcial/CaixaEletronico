@@ -83,7 +83,7 @@ namespace CaixaEletronico.Core.Domain.Entities
         /// Garante que o valor determinado pode ser depositado
         /// </summary>
         /// <param name="valor">Valor avaliado para deposito</param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Exceção lançada quando o valor não seja valido para deposito</exception>
         private void GarantirQuePodeDepositar(decimal valor)
         {
             Validando.ZeroOuNegativo(valor, nameof(valor));
@@ -97,7 +97,7 @@ namespace CaixaEletronico.Core.Domain.Entities
         /// Garante que o valor determinado pode ser sacado
         /// </summary>
         /// <param name="valor">Valor avaliado para saque</param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Exceção lançada quando o valor não seja valido para saque</exception>
         private void GarantirQuePodeSacar(decimal valor)
         {
             Validando.ZeroOuNegativo(valor, nameof(valor));
@@ -114,7 +114,7 @@ namespace CaixaEletronico.Core.Domain.Entities
         /// Garante que o valor determinado pode ser transferido
         /// </summary>
         /// <param name="valor">Valor avaliado para transferencia</param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Exceção lançada quando o valor não seja valido para transferencia</exception>
         private void GarantirQuePodeTransferir(decimal valor)
         {
             Validando.ZeroOuNegativo(valor, nameof(valor));
@@ -132,7 +132,7 @@ namespace CaixaEletronico.Core.Domain.Entities
         /// Garante que o valor determinado pode ser recebido
         /// </summary>
         /// <param name="valor">Valor avaliado para recebimento</param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Exceção lançada quando o valor não seja valido para recebimento</exception>
         private void GarantirQuePodeReceber(decimal valor)
         {
             Validando.ZeroOuNegativo(valor, nameof(valor));
