@@ -32,7 +32,7 @@ namespace CaixaEletronico.Core.Domain.Entities
         }
         
         /// <summary>
-        /// Deposita o valor na conta, atribuindo o valor do saldo.
+        /// Deposita o valor na conta, atribuindo o valor ao saldo.
         /// </summary>
         /// <param name="valor">Valor a ser depositado</param>
         public void Depositar(decimal valor)
@@ -43,7 +43,7 @@ namespace CaixaEletronico.Core.Domain.Entities
         }
 
         /// <summary>
-        /// Saca o valor da conta, subtraindo o valor ao saldo.
+        /// Saca o valor da conta, subtraindo o valor do saldo.
         /// </summary>
         /// <param name="valor">Valor a ser sacado</param>
         public void Sacar(decimal valor)
@@ -55,7 +55,7 @@ namespace CaixaEletronico.Core.Domain.Entities
 
         /// <summary>
         /// Transfere o valor da para para outra conta, subtrai o valor do saldo
-        /// e atribui ao saldo de outra conta.
+        /// e atribui ao saldo de outra conta, a favorecida.
         /// </summary>
         /// <param name="valor">Valor a ser transferido</param>
         /// <param name="favorecido">Conta favorecida, para qual o valor foi transferido</param>
