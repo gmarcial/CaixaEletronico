@@ -263,13 +263,14 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Uma_transferencia_é_valida_quando_o_valor_for_maior_que_zero(decimal valor)
         {
             //Arrange
-            var conta = ContaBuilder.Saldo(5000).Build();
+            var remetente = ContaBuilder.Saldo(5000).Build();
+            var favorecido = ContaBuilder.Build();
             
             //Act
-            var valorTransferido = conta.Transferir(valor);
+            remetente.Transferir(valor, favorecido);
             
             //Assert
-            Assert.Equal(valor, valorTransferido);
+            Assert.True(valor > 0);
         }
 
         [Theory]
@@ -278,10 +279,11 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Uma_transferencia_é_invalida_quando_o_valor_for_zero_ou_negativo(decimal valor)
         {
             //Arrange
-            var conta = ContaBuilder.Build();
+            var remetente = ContaBuilder.Build();
+            var favorecido = ContaBuilder.Build();
             
             //Act
-            Action transferencia = () => conta.Transferir(valor);
+            Action transferencia = () => remetente.Transferir(valor, favorecido);
             
             //Assert
             Assert.Throws<ArgumentOutOfRangeException>(transferencia);
@@ -310,13 +312,19 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Uma_transferencia_é_valida_quando_o_valor_for_igual_ou_menor_que_o_limite_de_10000(decimal valor)
         {
             //Arrange
-            var conta = ContaBuilder.Saldo(10000).Build();
+            var remetente = ContaBuilder.Saldo(10000).Build();
+            var saldoEsperadoRemetente = remetente.Saldo - valor;
+            
+            var favorecido = ContaBuilder.Build();
+            var saldoEsperadoFavorecido = favorecido.Saldo + valor;
             
             //Act
-            var valorTransferido = conta.Transferir(valor);
+            remetente.Transferir(valor, favorecido);
             
-            //Assert
-            Assert.Equal(valor, valorTransferido);
+            //Assert retirada do remetente
+            Assert.Equal(saldoEsperadoRemetente, remetente.Saldo);
+            //Assert recebimento do favorecido
+            Assert.Equal(saldoEsperadoFavorecido, favorecido.Saldo);
         }
 
         [Theory]
@@ -329,10 +337,11 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Uma_transferencia_é_invalida_quando_o_valor_for_maior_que_o_limite_de_10000(decimal valor)
         {
             //Arrange
-            var conta = ContaBuilder.Build();
+            var remetente = ContaBuilder.Build();
+            var favorecido = ContaBuilder.Build();
             
             //Act
-            Action transferencia = () => conta.Transferir(valor);
+            Action transferencia = () => remetente.Transferir(valor, favorecido);
             
             //Asser
             Assert.Throws<ArgumentOutOfRangeException>(transferencia);
@@ -347,13 +356,19 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Uma_transferencia_é_valida_quando_o_saldo_for_igual_ou_maior_ao_valor(decimal valor)
         {
             //Arrange
-            var conta = ContaBuilder.Saldo(5000).Build();
+            var remetente = ContaBuilder.Saldo(5000).Build();
+            var saldoEsperadoRemetente = remetente.Saldo - valor;
+
+            var favorecido = ContaBuilder.Build();
+            var saldoEsperadoFavorecido = favorecido.Saldo + valor;
             
             //Act
-            var valorTransferido = conta.Transferir(valor);
+            remetente.Transferir(valor, favorecido);
             
-            //Assert
-            Assert.Equal(valorTransferido, valor);
+            //Assert retirada remetente
+            Assert.Equal(saldoEsperadoRemetente, remetente.Saldo);
+            //Assert recebimento do favorecido
+            Assert.Equal(saldoEsperadoFavorecido, favorecido.Saldo);
         }
 
         [Theory]
@@ -364,117 +379,19 @@ namespace CaixaEletronico.tests.UnitTests.Core.Domain.Entities
         public void Uma_transferencia_é_valida_quando_o_saldo_é_subtraido_pelo_valor(decimal valor)
         {
             //Arrange
-            var conta = ContaBuilder.Saldo(5000).Build();
-            var saldoEsperado = conta.Saldo - valor;
-            
-            //Act
-            conta.Transferir(valor);
+            var remetente = ContaBuilder.Saldo(5000).Build();
+            var saldoEsperadoRemetente = remetente.Saldo - valor;
 
-            //Assert
-            Assert.Equal(saldoEsperado, conta.Saldo);
-        }
+            var favorecido = ContaBuilder.Build();
+            var saldoEsperadoFavorecido = favorecido.Saldo + valor;
 
-        [Theory]
-        [InlineData(500)]
-        [InlineData(302)]
-        [InlineData(705)]
-        [InlineData(1000)]
-        public void Um_recebimento_é_valido_quando_o_valor_for_maior_que_zero(decimal valor)
-        {
-            //Arrange
-            var conta = ContaBuilder.Build();
-            var saldoEsperado = conta.Saldo + valor;
-            
             //Act
-            conta.Receber(valor);
-            
-            //Assert
-            Assert.Equal(saldoEsperado, conta.Saldo);
-        }
+            remetente.Transferir(valor, favorecido);
 
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-1)]
-        public void Um_recebimento_é_invalido_quando_o_valor_for_zero_ou_negativo(decimal valor)
-        {
-            //Arrange
-            var conta = ContaBuilder.Build();
-            
-            //Act
-            Action receber = () => conta.Receber(valor);
-            
-            //Assert
-            Assert.Throws<ArgumentOutOfRangeException>(receber);
-        }
-
-        [Theory]
-        [InlineData(500)]
-        [InlineData(1500)]
-        [InlineData(2000)]
-        [InlineData(2500)]
-        [InlineData(3000)]
-        [InlineData(3500)]
-        [InlineData(4000)]
-        [InlineData(4500)]
-        [InlineData(5000)]
-        [InlineData(5500)]
-        [InlineData(6000)]
-        [InlineData(6500)]
-        [InlineData(7000)]
-        [InlineData(7500)]
-        [InlineData(8000)]
-        [InlineData(8500)]
-        [InlineData(9000)]
-        [InlineData(9500)]
-        [InlineData(10000)]
-        public void Um_recebimento_é_valido_quando_o_valor_for_menor_ou_igual_ao_limite_de_10000(decimal valor)
-        {
-            //Arrange
-            var conta = ContaBuilder.Build();
-            var saldoEsperado = conta.Saldo + valor;
-            
-            //Act
-            conta.Receber(valor);
-            
-            //Assert
-            Assert.Equal(saldoEsperado, conta.Saldo);
-        }
-
-        [Theory]
-        [InlineData(20000)]
-        [InlineData(30000)]
-        [InlineData(40000)]
-        [InlineData(50000)]
-        public void Um_recebimento_é_invalido_quando_o_valor_for_maior_que_o_limite_de_10000(decimal valor)
-        {
-            //Arrange
-            var conta = ContaBuilder.Build();
-            
-            //Act
-            Action receber = () => conta.Receber(valor);
-            
-            //Assert
-            Assert.Throws<ArgumentOutOfRangeException>(receber);
-        }
-
-        [Theory]
-        [InlineData(500)]
-        [InlineData(1500)]
-        [InlineData(5000)]
-        [InlineData(3000)]
-        [InlineData(5200)]
-        [InlineData(10000)]
-        public void Um_recebimento_é_valido_quando_o_valor_for_atribuido_ao_saldo(decimal valor)
-        {
-            //Arrange
-            var conta = ContaBuilder.Build();
-            var saldoEsperado = conta.Saldo + valor;
-            
-            //Act
-            conta.Receber(valor);
-            
-            //Assert
-            Assert.Equal(saldoEsperado, conta.Saldo);
+            //Assert retirada remetente
+            Assert.Equal(saldoEsperadoRemetente, remetente.Saldo);
+            //Assert recebimento favorecido
+            Assert.Equal(saldoEsperadoFavorecido, favorecido.Saldo);
         }
     }
 }
